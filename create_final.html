@@ -1,0 +1,148 @@
+<html>
+<head>
+	<title>FLOP</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="date.js"></script>
+	<link rel="stylesheet" type="text/css" href="results.css">
+</head>
+<body>
+
+	<div class="cal-ajax-container">
+
+	</div>
+
+
+<script type="text/javascript">
+	// find out url query params
+	var urlParams;
+	(window.onpopstate = function () {
+    var match,
+        pl     = /\+/g,  // Regex for replacing addition symbol with a space
+        search = /([^&=]+)=?([^&]*)/g,
+        decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+        query  = window.location.search.substring(1);
+
+    urlParams = {};
+    while (match = search.exec(query)) {
+       urlParams[decode(match[1])] = decode(match[2]);
+   	}
+   	console.log("id: "+ urlParams.id);
+   	$.get( "calculateDay.php", { id: urlParams.id })
+  			.done(function( data ) {
+  				console.log(data);
+				var values = data.split(",");
+				console.log(values);
+				var x, content, delimited;
+				var date, month, day;
+				content = "<h1>People preferred</h1>";
+				for (x=0; x<values.length; x++) {
+					delimited = values[x].split("-");
+					date = new Date(delimited[0], delimited[1], delimited[2]);
+
+					switch (delimited[1]-1) {
+				    case 0:
+				        month = "January";
+				        break;
+				    case 1:
+				        month = "February";
+				        break;
+				    case 2:
+				        month = "March";
+				        break;
+				    case 3:
+				        month = "April";
+				        break;
+				    case 4:
+				        month = "May";
+				        break;
+				    case 5:
+				        month = "June";
+				        break;
+				    case 6:
+				        month = "July";
+				        break;
+				    case 7:
+				        month = "August";
+				        break;
+				    case 8:
+				        month = "September";
+				        break;
+				    case 9:
+				        month = "October";
+				        break;
+				    case 10:
+				        month = "November";
+				        break;
+				    case 11:
+				        month = "December";
+				        break;
+					}
+					console.log(delimited[2]);
+					switch (date.getDay()) {
+					    case 0:
+					        day = "Sunday";
+					        break;
+					    case 1:
+					        day = "Monday";
+					        break;
+					    case 2:
+					        day = "Tuesday";
+					        break;
+					    case 3:
+					        day = "Wednesday";
+					        break;
+					    case 4:
+					        day = "Thursday";
+					        break;
+					    case 5:
+					        day = "Friday";
+					        break;
+					    case 6:
+					        day = "Saturday";
+					        break;
+					}
+					
+					content += "<a href='#' class='day-number' id='"+(x+1)+"pick' data-date='"+values[x]+"'>";
+					content += day+" "+month+" "+delimited[2];
+					console.log(month);
+					console.log(day);
+  					console.log("HIHIHIOHIOHEIWOHEIOQ");
+  					
+				}
+				console.log(content);
+				$('.cal-ajax-container').html(content);
+				
+   			 
+  	});
+
+   	//console.log(urlParams.id);
+	})();
+
+
+
+	var dateArray = [];
+	var date = new Date();
+	
+	var i = 0;
+	$('body').on('click', 'a.day-number', function(e) {
+		e.preventDefault();
+		var $this = $(this);
+		console.log("clicked!");
+		if ($this.hasClass('selected')) {
+			i = dateArray.indexOf($(this).data("date"));
+			dateArray.splice(i, 1);
+			$this.removeClass('selected');
+		}
+		else {
+			$this.addClass('selected');
+			dateArray.push($(this).data("date"));
+  			//console.log( index + ": " + $( this ).text() );
+		}
+	});
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<html>
+<head>
+	<title>FLOP</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+</head>
+<body>
+
+<ul class="contact-list">
+	<li class="contact-slide">Samuel Wu</li>
+	<li class="contact-slide">Pansy Cheung</li>
+	<li class="contact-slide">Justin Cuaresma</li>
+	<li class="contact-slide">Barack Obama</li>
+	<li class="contact-slide">Rayhan Vevaina</li>
+	<li class="contact-slide">Kanye West</li>
+	<li class="contact-slide">Miley Cyrus</li>
+</ul>
+
+<script type="text/javascript">
+	// find out url query params
+	var urlParams;
+	(window.onpopstate = function () {
+    var match,
+        pl     = /\+/g,  // Regex for replacing addition symbol with a space
+        search = /([^&=]+)=?([^&]*)/g,
+        decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+        query  = window.location.search.substring(1);
+
+    urlParams = {};
+    while (match = search.exec(query)) {
+       urlParams[decode(match[1])] = decode(match[2]);
+   	}
+
+   	
+</script>
+
+</body>
+</html>

@@ -1,0 +1,4 @@
+SELECT TimeAvailable, COUNT(  `TimeAvailable` ) 
+FROM ResponseList
+GROUP BY TimeAvailable
+LIMIT 0 , 30
